@@ -1,0 +1,28 @@
+{
+ "content": null, 
+ "creation": "2016-05-05 07:07:06.893645", 
+ "docstatus": 0, 
+ "doctype": "Page", 
+ "idx": 0, 
+ "modified": "2016-05-05 07:07:06.893645", 
+ "modified_by": "Administrator", 
+ "module": "BPMN Editor", 
+ "name": "bpmn-editor", 
+ "owner": "Administrator", 
+ "page_name": "bpmn-editor", 
+ "roles": [
+  {
+   "role": "BPMN User"
+  }, 
+  {
+   "role": "Administrator"
+  }, 
+  {
+   "role": "System Manager"
+  }
+ ], 
+ "script": null, 
+ "standard": "Yes", 
+ "style": null, 
+ "title": "BPMN Editor"
+}

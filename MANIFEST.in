@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include bpmn_editor *.css
+recursive-include bpmn_editor *.csv
+recursive-include bpmn_editor *.html
+recursive-include bpmn_editor *.ico
+recursive-include bpmn_editor *.js
+recursive-include bpmn_editor *.json
+recursive-include bpmn_editor *.md
+recursive-include bpmn_editor *.png
+recursive-include bpmn_editor *.py
+recursive-include bpmn_editor *.svg
+recursive-include bpmn_editor *.txt
+recursive-exclude bpmn_editor *.pyc
