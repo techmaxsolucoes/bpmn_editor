@@ -1,35 +1,36 @@
-// hack to support v7 async require
-frappe.call({
-	method: "frappe.utils.change_log.get_versions",
-	callback: function(r) {
-		var requirements = [
-			'/assets/bpmn_editor/js/assets/diagram-js.css',
-			'/assets/bpmn_editor/js/assets/bpmn-font/css/bpmn-embedded.css',
-			'/assets/bpmn_editor/js/bpmn-modeler.js',
-		];
-		if (cint(r.message.frappe.version.split('.')[0]) >= 7){
-			frappe.require(requirements, init)
-		} else (
-			frappe.require(requirements);
-			init();
-		)
-	}
-});
+frappe.provide("bpmn");
+frappe.pages['bpmn-editor'].on_page_load = function(wrapper) {
+	var page = frappe.ui.make_app_page({
+		parent: wrapper,
+		title: 'BPMN Editor',
+		single_column: true
+	});
 
-function init(){
-
-	frappe.pages['bpmn-editor'].on_page_load = function(wrapper) {
-		var page = frappe.ui.make_app_page({
-			parent: wrapper,
-			title: 'BPMN Editor',
-			single_column: true
-		});
-
+	function init(){
 		bpmn.editor = new bpmn.Editor(wrapper, page);
-
 	}
 
-	frappe.pages['bpmn-editor'].refresh = function(wrapper){
+	// hack to support v7 async require
+	frappe.call({
+		method: "frappe.utils.change_log.get_versions",
+		callback: function(r) {
+			var requirements = [
+				'/assets/bpmn_editor/js/assets/diagram-js.css',
+				'/assets/bpmn_editor/js/assets/bpmn-font/css/bpmn-embedded.css',
+				'/assets/bpmn_editor/js/bpmn-modeler.js',
+			];
+			if (cint(r.message.frappe.version.split('.')[0]) >= 7){
+				frappe.require(requirements, init)
+			} else {
+				frappe.require(requirements);
+				init();
+			}
+		}
+	});
+}
+
+frappe.pages['bpmn-editor'].refresh = function(wrapper){
+	if (bpmn && bpmn.editor){
 		bpmn.editor.set_from_route();
 	}
 }
@@ -48,6 +49,7 @@ bpmn.Editor = Class.extend({
 		this.body = this.page.main.find('#canvas');
 		this.resize();
 		this.make();
+		this.set_from_route();
 	},
 	make: function(){
 		var BpmnModeler = window.BpmnJS, self = this;
